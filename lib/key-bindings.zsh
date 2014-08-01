@@ -46,8 +46,8 @@ bindkey ' ' magic-space                               # [Space] - do history exp
 bindkey '^[[1;5C' forward-word                        # [Ctrl-RightArrow] - move forward one word
 bindkey '^[[1;5D' backward-word                       # [Ctrl-LeftArrow] - move backward one word
 
-if [[ "${terminfo[kcbt]}" != "" ]]; then
-  bindkey "${terminfo[kcbt]}" reverse-menu-complete   # [Shift-Tab] - move through the completion menu backwards
+if [[ "${terminfo[kdch1]}" != "" ]]; then
+  bindkey "${terminfo[kdch1]}" reverse-menu-complete  # [Shift-Tab] - move through the completion menu backwards
 fi
 
 bindkey '^?' backward-delete-char                     # [Backspace] - delete backward
@@ -82,3 +82,27 @@ bindkey '\C-x\C-e' edit-command-line
 ## Fix weird sequence that rxvt produces
 #bindkey -s '^[[Z' '\t'
 #
+
+#history only on first substring of command you're typing
+#bindkey "\e[A" up-line-or-search
+#bindkey "\e[B" down-line-or-search
+bindkey "\e[A" history-beginning-search-backward
+bindkey "\e[B" history-beginning-search-forward
+#new iterm binds up arrow to this, wtf, ^[[A is standard on all other xterm's
+bindkey "\eOA" history-beginning-search-backward
+bindkey "\eOB" history-beginning-search-forward
+
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[2~" quoted-insert
+bindkey "\e[3~" delete-char
+bindkey "\e[4~" end-of-line
+bindkey "\e[5~" beginning-of-history
+bindkey "\e[6~" end-of-history
+bindkey "\e[7~" beginning-of-line
+bindkey "\e[8~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+bindkey "\eOH" beginning-of-line
+bindkey "\eOF" end-of-line
+bindkey "\eOd" backward-word
+bindkey "\eOc" forward-word 
